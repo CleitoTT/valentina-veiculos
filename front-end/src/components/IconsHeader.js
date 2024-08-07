@@ -6,7 +6,7 @@ export default function IconsHeader(){
     return(
         <div className="flex">
             <a href="https://maps.app.goo.gl/hVncEgeN8r1o73tY8" target="_blank" rel="noreferrer"><img src={maps} className="size-8 hover:scale-110 duration-500 cursor-pointer" alt="Icone de mapa"/></a>
-            <img src={whatsapp} className="size-8 ml-3 hover:scale-110 duration-500 cursor-pointer" alt="Icone whatsapp"/>
+            <a href="https://wa.link/2sw6uw" target="_blank" rel="noreferrer"><img src={whatsapp} className="size-8 ml-3 hover:scale-110 duration-500 cursor-pointer" alt="Icone whatsapp"/></a>
         </div>
     )
 }
