@@ -11,7 +11,7 @@ function Veiculos() {
         if (location.state && location.state.carrosFiltrados) {
             setCarros(location.state.carrosFiltrados);
         } else {
-            axios.get("http://localhost:8000/carros")
+            axios.get("https://valentina-veiculos-api.vercel.app/carros")
                 .then((response) => {
                     const carros = response.data.map(carro => {
                         return { ...carro, valor: carro.valor ? formatarPreco(carro.valor) : "Valor indisponível" }

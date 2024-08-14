@@ -10,7 +10,7 @@ export default function AtualizarCarro() {
     useEffect(() => {
         async function fetchCarros() {
             try {
-                const response = await axios.get('http://localhost:8000/carros');
+                const response = await axios.get('https://valentina-veiculos-api.vercel.app/carros');
                 setCarros(response.data);
             } catch (error) {
                 console.error(error);
@@ -23,7 +23,7 @@ export default function AtualizarCarro() {
         e.preventDefault();
 
         try {
-            await axios.patch(`http://localhost:8000/carros/${carroId}`, {
+            await axios.patch(`https://valentina-veiculos-api.vercel.app/carros/${carroId}`, {
                 [campo]: valor,
             });
             alert("Carro atualizado com sucesso");

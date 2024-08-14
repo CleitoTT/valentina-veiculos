@@ -18,7 +18,7 @@ export default function Pesquisa() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get('http://localhost:8000/carros')
+        axios.get('https://valentina-veiculos-api.vercel.app/carros')
             .then((response) => {
                 const data = response.data;
                 setCarros(data);

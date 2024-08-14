@@ -23,7 +23,7 @@ export default function CriaCarros(){
         formData.append('file', imagem);
         
         try{
-            const response = await axios.post('http://localhost:8000/carros', formData, {
+            const response = await axios.post('https://valentina-veiculos-api.vercel.app/carros', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },

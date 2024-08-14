@@ -9,7 +9,7 @@ export default function Carros(){
     const [car, setCar] = useState(null)
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/carros/${id}`)
+        axios.get(`https://valentina-veiculos-api.vercel.app/carros/${id}`)
             .then(response => {
                 const carro = response.data.carroEncontrado;
                 carro.valor = carro.valor ? formatarPreco(carro.valor) : "Valor indisponível";

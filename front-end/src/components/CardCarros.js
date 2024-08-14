@@ -3,7 +3,7 @@ import Button from "./Button"
 
 export default function CardCarros({nome, valor, ano, km, id, imagem}){
     
-    const imageUrl = `http://localhost:8000/uploads/${imagem}`;
+    const imageUrl = `https://valentina-veiculos-api.vercel.app/uploads/${imagem}`;
 
     return(
         <div className="w-7/12 lg:w-6/12 h-96 bg-[#FFF] rounded-xl flex flex-col items-center justify-center mt-8">

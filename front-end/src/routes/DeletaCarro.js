@@ -8,7 +8,7 @@ export default function DeletaCarros() {
     useEffect(() => {
         async function fetchCarros() {
             try {
-                const response = await axios.get('http://localhost:8000/carros');
+                const response = await axios.get('https://valentina-veiculos-api.vercel.app/carros');
                 setCarros(response.data);
             } catch (error) {
                 console.error(error);
@@ -28,7 +28,7 @@ export default function DeletaCarros() {
     const handleDelete = async () => {
         try {
             await Promise.all(carrosSelecionados.map(async (id) => {
-                await axios.delete(`http://localhost:8000/carros/${id}`);
+                await axios.delete(`https://valentina-veiculos-api.vercel.app/carros/${id}`);
             }));
             alert("Carros excluídos com sucesso");
             setCarros(carros.filter(carro => !carrosSelecionados.includes(carro._id)));
