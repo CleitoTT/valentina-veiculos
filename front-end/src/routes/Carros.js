@@ -37,7 +37,7 @@ export default function Carros(){
                     <p><b>Ano:</b>    {car.ano}</p>
                     <p><b>Kilometragem:</b>    {car.km}</p>
                 </div>
-                <img src={`http://localhost:8000/uploads/${car.imagem}`} alt='imagem carro' className='w-11/12 relative visible md:absolute md:invisible' />
+                <img src={`https://valentina-veiculos-api.vercel.app/uploads/${car.imagem}`} alt='imagem carro' className='w-11/12 relative visible md:absolute md:invisible' />
                 <div className="w-8/12 h-64 bg-[#FFF] flex flex-col justify-center items-center text-center border-t-8 border-[#25D366] rounded-xl">
                     <p className="text-lg font-bold">Fale agora mesmo com um de nossos<br/> especialistas e tire todas suas dúvidas</p>
                         <button onClick={() => window.open( 'https://wa.link/2sw6uw', '_blank')} className="relative inset-x-0 top-10 lg:top-14 h-14 w-11/12 lg:h-12 lg:w-10/12 bg-[#25D366] rounded-xl text-xl text-[#FFF] font-black text-center hover:bg-[#1DA650] duration-300 flex items-center justify-center">
@@ -47,7 +47,7 @@ export default function Carros(){
                 </div>
             </div>
             <div className='inset-y-0 right-0 bg-vermelho w-2/4 h-full z-0 flex items-center justify-center md:relative md:visible absolute invisible'>
-                <img src={`http://localhost:8000/uploads/${car.imagem}`} alt='imagem carro' className='w-11/12' />
+                <img src={`https://valentina-veiculos-api.vercel.app/uploads/${car.imagem}`} alt='imagem carro' className='w-11/12' />
             </div>
         </div>
     )
