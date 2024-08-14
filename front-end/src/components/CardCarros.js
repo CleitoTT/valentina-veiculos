@@ -1,19 +1,24 @@
+import { Link } from "react-router-dom"
 import Button from "./Button"
-import carro from "../images/pictures/image-removebg-preview.png"
 
-export default function CardCarros(){
+export default function CardCarros({nome, valor, ano, km, id, imagem}){
+    
+    const imageUrl = `http://localhost:8000/uploads/${imagem}`;
+
     return(
-        <div className="w-6/12 h-96 bg-[#FFF] rounded-xl flex flex-col items-center justify-center mt-8">
-            <img src={carro} alt="imagem carro" />
+        <div className="w-7/12 lg:w-6/12 h-96 bg-[#FFF] rounded-xl flex flex-col items-center justify-center mt-8">
+            <img src={imageUrl} alt="imagem carro" className="w-9/12 lg:w-auto" />
             <div className="w-9/12 flex flex-col">
-                <h1 className="text-2xl font-bold">Fiat Mobi</h1>
-                <h1 className="text-2xl font-bold text-vermelho">R$35.000</h1>
+                <h1 className="text-2xl font-bold">{nome}</h1>
+                <h1 className="text-2xl font-bold text-vermelho">{valor}</h1>
             </div>
             <div className="w-9/12 flex justify-between mb-5">
-                <p>2024/2025</p>
-                <p>45.000km</p>
+                <p>{ano}</p>
+                <p>{km}</p>
             </div>
-            <Button nome={"Estou interessado"} />
+            <Link to={`/veículos/${id}`} className="flex justify-center items-center mb-5 lg:m-0">
+                <Button nome={"Estou interessado"} />
+            </Link>
         </div>
     )
 }

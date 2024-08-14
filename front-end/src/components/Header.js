@@ -4,7 +4,7 @@ import TextoHeader from "./TextoHeader"
 
 export default function Header({position}){
     return(
-        <div className="bg-[#FFF] w-full z-10 flex items-center justify-around">
+        <div className="bg-[#FFF] w-full z-10 flex flex-col items-center justify-around lg:flex-row">
             <Logo />
             <TextoHeader/>
             <IconsHeader />

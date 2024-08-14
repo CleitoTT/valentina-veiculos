@@ -4,9 +4,14 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from './routes/Home';
-import Carros from './routes/Carros';
+import Veiculos from './routes/Veiculos';
 import Empresa from './routes/Empresa'
 import Header from './components/Header';
+import CriaCarros from './routes/CriaCarros';
+import Carros from './routes/Carros';
+import AtualizarCarro from './routes/AtualizarCarro';
+import DeletaCarros from './routes/DeletaCarro';
+import Dados from './routes/Dados';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -16,8 +21,13 @@ root.render(
         <Header />
         <Routes>
           <Route path='/' element={ <Home />}/>
-          <Route path='/veículos' element={<Carros />} />
+          <Route path='/veículos' element={<Veiculos />} />
           <Route path='/empresa' element={<Empresa />} />
+          <Route path='/criar' element={<CriaCarros />} />
+          <Route path='/atualizar' element={<AtualizarCarro/>}/>
+          <Route path='/deletar' element={<DeletaCarros/>}/>
+          <Route path='/dados' element={<Dados/>}/>
+          <Route path='/veículos/:id' element={<Carros/>} />
         </Routes>
       </div>
     </BrowserRouter>
