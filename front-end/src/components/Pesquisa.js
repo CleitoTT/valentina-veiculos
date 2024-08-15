@@ -36,36 +36,38 @@ export default function Pesquisa() {
     }, []);
 
     const handleBuscarCarro = () => {
-        const formatarPreco = (valor) => {
-            return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        };
-
-        const carrosFiltrados = carros.filter(car => 
-            (modeloSelecionado ? car.nome === modeloSelecionado : true) &&
-            (marcaSelecionada ? car.marca === marcaSelecionada : true) &&
-            (anoSelecionado ? car.ano === anoSelecionado : true) &&
-            (precoSelecionado ? 
-                (precoSelecionado === 'acima de R$9.000' ? car.valor > 9000 :
-                precoSelecionado === 'até R$1.000' ? car.valor <= 1000 :
-                precoSelecionado === 'até R$3.000' ? car.valor <= 3000 :
-                precoSelecionado === 'até R$6.000' ? car.valor <= 6000 :
-                precoSelecionado === 'até R$9.000' ? car.valor <= 9000 : true) 
-                : true)
-        ).map(carro => {
-            return {
-                ...carro,
-                valor: carro.valor ? formatarPreco(carro.valor) : "Valor indisponível"
-            };
-        });
-
-        if(carrosFiltrados.length === 0){
-            alert("Não existem carros compatíveis com esses filtros")
-        }else if (carrosFiltrados.length === 1) {
-            navigate(`/veículos/${carrosFiltrados[0]._id}`);
-        } else {
-            navigate('/veículos', { state: { carrosFiltrados } });
-        }
+    const formatarPreco = (valor) => {
+        return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
     };
+
+    const anoSelecionadoNumero = anoSelecionado ? Number(anoSelecionado) : null;
+
+    const carrosFiltrados = carros.filter(car => 
+        (modeloSelecionado ? car.nome === modeloSelecionado : true) &&
+        (marcaSelecionada ? car.marca === marcaSelecionada : true) &&
+        (anoSelecionadoNumero ? car.ano === anoSelecionadoNumero : true) &&
+        (precoSelecionado ? 
+            (precoSelecionado === 'acima de R$9.000' ? car.valor > 9000 :
+            precoSelecionado === 'até R$1.000' ? car.valor <= 1000 :
+            precoSelecionado === 'até R$3.000' ? car.valor <= 3000 :
+            precoSelecionado === 'até R$6.000' ? car.valor <= 6000 :
+            precoSelecionado === 'até R$9.000' ? car.valor <= 9000 : true) 
+            : true)
+    ).map(carro => {
+        return {
+            ...carro,
+            valor: carro.valor ? formatarPreco(carro.valor) : "Valor indisponível"
+        };
+    });
+
+    if(carrosFiltrados.length === 0){
+        alert("Não existem carros compatíveis com esses filtros")
+    }else if (carrosFiltrados.length === 1) {
+        navigate(`/veículos/${carrosFiltrados[0]._id}`);
+    } else {
+        navigate('/veículos', { state: { carrosFiltrados } });
+    }
+};
 
     return (
         <div className="size-full bg-branco flex flex-col items-center justify-center text-left md:w-2/4">
