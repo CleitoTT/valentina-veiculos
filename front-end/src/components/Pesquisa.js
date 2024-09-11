@@ -26,11 +26,10 @@ export default function Pesquisa() {
                 setMarcas([...new Set(data.map(item => item.marca))]);
                 setAnos([...new Set(data.map(item => item.ano))]);
                 setPreco([
-                    'até R$1.000',
-                    'até R$3.000',
-                    'até R$6.000',
-                    'até R$9.000',
-                    'acima de R$9.000'
+                    'até R$20.000',
+                    'até R$40.000',
+                    'até R$60.000',
+                    'acima de R$60.000'
                 ]);
             });
     }, []);
@@ -47,11 +46,10 @@ export default function Pesquisa() {
             (marcaSelecionada ? car.marca === marcaSelecionada : true) &&
             (anoSelecionadoNumero ? car.ano === anoSelecionadoNumero : true) &&
             (precoSelecionado ? 
-                (precoSelecionado === 'acima de R$9.000' ? car.valor > 9000 :
-                precoSelecionado === 'até R$1.000' ? car.valor <= 1000 :
-                precoSelecionado === 'até R$3.000' ? car.valor <= 3000 :
-                precoSelecionado === 'até R$6.000' ? car.valor <= 6000 :
-                precoSelecionado === 'até R$9.000' ? car.valor <= 9000 : true) 
+                (precoSelecionado === 'acima de R$60.000' ? car.valor > 60000 :
+                precoSelecionado === 'até R$1.000' ? car.valor <= 20000 :
+                precoSelecionado === 'até R$3.000' ? car.valor <= 40000 :
+                precoSelecionado === 'até R$6.000' ? car.valor <= 60000 : true) 
                 : true)
         ).map(carro => {
             return {
