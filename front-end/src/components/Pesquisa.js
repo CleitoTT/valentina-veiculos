@@ -76,7 +76,7 @@ export default function Pesquisa() {
             </div>
             <div className="w-11/12 grid grid-cols-2 items-center justify-center ml-12 md:ml-20 mt-10">
                 <Inputs padrao={"Modelo"} valores={modelos} onChange={e => setModeloSelecionado(e.target.value)} />
-                <Inputs padrao={"Marca"} valores={marcas} onChange={e => setMarcaSelecionada(e.target.value)} />
+                <Inputs padrao={"Marca"} valores={marcas.sort()} onChange={e => setMarcaSelecionada(e.target.value)} />
                 <Inputs padrao={"Ano"} valores={anos.sort()} onChange={e => setAnoSelecionado(e.target.value)} />
                 <Inputs padrao={"Preço"} valores={preco} onChange={e => setPrecoSelecionado(e.target.value)} />
             </div>
