@@ -43,7 +43,7 @@ export default function DeletaCarros() {
         <div className="size-screen flex flex-col justify-center items-center mt-10">
             <h1 className="text-4xl font-bold text-vermelho mb-8">Excluir Carros</h1>
             <ul className="w-9/12">
-                {carros.map(carro => (
+                {carros.sort().map(carro => (
                     <li key={carro._id} className="flex justify-between items-center border-b py-2">
                         <span>{carro.nome} - {carro.marca} - {carro.ano}</span>
                         <input
