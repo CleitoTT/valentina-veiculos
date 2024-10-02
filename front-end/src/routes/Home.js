@@ -4,7 +4,7 @@ import carro from "../images/pictures/image-removebg-preview.png"
 
 function Home() {
   return (
-    <div className='size-full flex'>
+    <div className='h-screen flex items-center'>
       <Pesquisa />
       <FotoCarro imagem={carro}/>
     </div>

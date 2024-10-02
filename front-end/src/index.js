@@ -17,19 +17,17 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <div className='w-full h-screen bg-branco'>
-        <Header />
-        <Routes>
-          <Route path='/' element={ <Home />}/>
-          <Route path='/veículos' element={<Veiculos />} />
-          <Route path='/empresa' element={<Empresa />} />
-          <Route path='/criar' element={<CriaCarros />} />
-          <Route path='/atualizar' element={<AtualizarCarro/>}/>
-          <Route path='/deletar' element={<DeletaCarros/>}/>
-          <Route path='/dados' element={<Dados/>}/>
-          <Route path='/veículos/:id' element={<Carros/>} />
-        </Routes>
-      </div>
+      <Header />
+      <Routes>
+        <Route path='/' element={ <Home />}/>
+        <Route path='/veículos' element={<Veiculos />} />
+        <Route path='/empresa' element={<Empresa />} />
+        <Route path='/criar' element={<CriaCarros />} />
+        <Route path='/atualizar' element={<AtualizarCarro/>}/>
+        <Route path='/deletar' element={<DeletaCarros/>}/>
+        <Route path='/dados' element={<Dados/>}/>
+        <Route path='/veículos/:id' element={<Carros/>} />
+      </Routes>
     </BrowserRouter>
   </React.StrictMode>
 );

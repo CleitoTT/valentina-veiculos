@@ -14,7 +14,10 @@ function Veiculos() {
             axios.get("https://valentina-veiculos-api.vercel.app/carros")
                 .then((response) => {
                     const carros = response.data.map(carro => {
-                        return { ...carro, valor: carro.valor ? formatarPreco(carro.valor) : "Valor indisponível" }
+                        return {
+                            ...carro, km: carro.km ? formataNum(carro.km) : "Km indisponível",
+                            valor: carro.valor ? formatarPreco(carro.valor) : "Valor indisponível" 
+                        }
                     });
                     setCarros(carros);
                 });
@@ -23,6 +26,10 @@ function Veiculos() {
 
     function formatarPreco(valor) {
         return Number(valor).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function formataNum(km){
+        return parseInt(km).toLocaleString('pt-BR')
     }
 
     return (
