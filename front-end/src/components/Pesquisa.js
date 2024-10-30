@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 export default function Pesquisa() {
     const [carros, setCarros] = useState([]);
-    const [modelos, setModelos] = useState([]);
     const [marcas, setMarcas] = useState([]);
+    const [modelos, setModelos] = useState([]);
     const [anos, setAnos] = useState([]);
     const [preco, setPreco] = useState([
         'até R$20.000',
@@ -15,8 +15,8 @@ export default function Pesquisa() {
         'acima de R$60.000'
     ]);
 
-    const [modeloSelecionado, setModeloSelecionado] = useState("");
     const [marcaSelecionada, setMarcaSelecionada] = useState("");
+    const [modeloSelecionado, setModeloSelecionado] = useState("");
     const [anoSelecionado, setAnoSelecionado] = useState("");
     const [precoSelecionado, setPrecoSelecionado] = useState("");
     const navigate = useNavigate();
@@ -26,17 +26,30 @@ export default function Pesquisa() {
             .then((response) => {
                 const data = response.data;
                 setCarros(data);
-                setModelos([...new Set(data.map(item => item.nome))]);
                 setMarcas([...new Set(data.map(item => item.marca))]);
-                setAnos([...new Set(data.map(item => item.ano))]);
             });
     }, []);
 
     const handleSelecionar = (tipo, valor) => {
-        if (tipo === "modelo") setModeloSelecionado(valor);
-        if (tipo === "marca") setMarcaSelecionada(valor);
-        if (tipo === "ano") setAnoSelecionado(valor);
-        if (tipo === "preco") setPrecoSelecionado(valor);
+        if (tipo === "marca") {
+            setMarcaSelecionada(valor);
+            setModeloSelecionado(""); // Resetar modelo quando a marca muda
+            setAnos([]);
+            setPrecoSelecionado("");
+            setModelos([...new Set(carros.filter(car => car.marca === valor).map(item => item.nome))]);
+        }
+        if (tipo === "modelo") {
+            setModeloSelecionado(valor);
+            setAnoSelecionado(""); // Resetar ano quando o modelo muda
+            setPrecoSelecionado("");
+            setAnos([...new Set(carros.filter(car => car.marca === marcaSelecionada && car.nome === valor).map(item => item.ano))]);
+        }
+        if (tipo === "ano") {
+            setAnoSelecionado(valor);
+        }
+        if (tipo === "preco") {
+            setPrecoSelecionado(valor);
+        }
     };
 
     const handleBuscarCarro = () => {
@@ -46,9 +59,9 @@ export default function Pesquisa() {
 
         const anoSelecionadoNumero = anoSelecionado ? Number(anoSelecionado) : null;
 
-        const carrosFiltrados = carros.filter(car => 
-            (modeloSelecionado ? car.nome === modeloSelecionado : true) &&
+        const carrosFiltrados = carros.filter(car =>
             (marcaSelecionada ? car.marca === marcaSelecionada : true) &&
+            (modeloSelecionado ? car.nome === modeloSelecionado : true) &&
             (anoSelecionadoNumero ? car.ano === anoSelecionadoNumero : true) &&
             (precoSelecionado ? 
                 (precoSelecionado === 'acima de R$60.000' ? car.valor > 60000 :
@@ -72,33 +85,6 @@ export default function Pesquisa() {
         }
     };
 
-    const filtrarValores = (tipo) => {
-        let carrosFiltrados = carros;
-
-        if (modeloSelecionado) {
-            carrosFiltrados = carrosFiltrados.filter(car => car.nome === modeloSelecionado);
-        }
-
-        if (marcaSelecionada) {
-            carrosFiltrados = carrosFiltrados.filter(car => car.marca === marcaSelecionada);
-        }
-
-        if (anoSelecionado) {
-            carrosFiltrados = carrosFiltrados.filter(car => car.ano === Number(anoSelecionado));
-        }
-
-        if (tipo === "modelo") {
-            setMarcas([...new Set(carrosFiltrados.map(item => item.marca))]);
-            setAnos([...new Set(carrosFiltrados.map(item => item.ano))]);
-        } else if (tipo === "marca") {
-            setModelos([...new Set(carrosFiltrados.map(item => item.nome))]);
-            setAnos([...new Set(carrosFiltrados.map(item => item.ano))]);
-        } else if (tipo === "ano") {
-            setModelos([...new Set(carrosFiltrados.map(item => item.nome))]);
-            setMarcas([...new Set(carrosFiltrados.map(item => item.marca))]);
-        }
-    };
-
     return (
         <div className="size-full bg-branco flex flex-col items-center justify-center text-left md:w-2/4">
             <div className="w-10/12 text-center md:text-left relative inset-y-0 left-0">
@@ -106,26 +92,12 @@ export default function Pesquisa() {
                 <p className="text-lg tracking-wide">Filtre e encontre seu carro dos sonhos.</p>
             </div>
             <div className="w-11/12 grid grid-cols-2 items-center justify-center ml-12 md:ml-20 mt-10">
-                <select
-                    className="w-4/5 h-16 bg-branco border-2 border-[#5e5e5e] border-solid rounded-lg text-[#5e5e5e] text-xl font-medium mb-10"
-                    defaultValue={modeloSelecionado}
-                    onChange={e => {
-                        handleSelecionar("modelo", e.target.value);
-                        filtrarValores("modelo");
-                    }}
-                >
-                    <option value="">Todos os Modelos</option>
-                    {modelos.map((modelo, index) => (
-                        <option key={index} value={modelo}>{modelo}</option>
-                    ))}
-                </select>
                 
                 <select
                     className="w-4/5 h-16 bg-branco border-2 border-[#5e5e5e] border-solid rounded-lg text-[#5e5e5e] text-xl font-medium mb-10"
-                    defaultValue={marcaSelecionada}
+                    value={marcaSelecionada}
                     onChange={e => {
                         handleSelecionar("marca", e.target.value);
-                        filtrarValores("marca");
                     }}
                 >
                     <option value="">Todas as Marcas</option>
@@ -136,11 +108,25 @@ export default function Pesquisa() {
 
                 <select
                     className="w-4/5 h-16 bg-branco border-2 border-[#5e5e5e] border-solid rounded-lg text-[#5e5e5e] text-xl font-medium mb-10"
-                    defaultValue={anoSelecionado}
+                    value={modeloSelecionado}
+                    onChange={e => {
+                        handleSelecionar("modelo", e.target.value);
+                    }}
+                    disabled={!marcaSelecionada}
+                >
+                    <option value="">Todos os Modelos</option>
+                    {modelos.map((modelo, index) => (
+                        <option key={index} value={modelo}>{modelo}</option>
+                    ))}
+                </select>
+
+                <select
+                    className="w-4/5 h-16 bg-branco border-2 border-[#5e5e5e] border-solid rounded-lg text-[#5e5e5e] text-xl font-medium mb-10"
+                    value={anoSelecionado}
                     onChange={e => {
                         handleSelecionar("ano", e.target.value);
-                        filtrarValores("ano");
                     }}
+                    disabled={!modeloSelecionado}
                 >
                     <option value="">Todos os Anos</option>
                     {anos.map((ano, index) => (
@@ -150,8 +136,9 @@ export default function Pesquisa() {
 
                 <select
                     className="w-4/5 h-16 bg-branco border-2 border-[#5e5e5e] border-solid rounded-lg text-[#5e5e5e] text-xl font-medium mb-10"
-                    defaultValue={precoSelecionado}
+                    value={precoSelecionado}
                     onChange={e => handleSelecionar("preco", e.target.value)}
+                    disabled={!anoSelecionado}
                 >
                     <option value="">Todos os Preços</option>
                     {preco.map((valor, index) => (
